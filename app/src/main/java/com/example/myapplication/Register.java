@@ -1,24 +1,48 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
-import android.os.Bundle;
-import android.content.Intent;
+import com.scwang.wave.MultiWaveHeader;
 
 public class Register extends AppCompatActivity {
     private Spinner spinner;
     private EditText editText;
 
+    MultiWaveHeader waveFooter;
+    MultiWaveHeader waveHeader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        waveHeader = (MultiWaveHeader) findViewById(R.id.wave_header);
+        waveFooter = (MultiWaveHeader) findViewById(R.id.wave_footer);
+
+        waveHeader.setVelocity(1);
+        waveHeader.setProgress(1);
+        waveHeader.isRunning();
+        waveHeader.setGradientAngle(45);
+        waveHeader.setWaveHeight(40);
+        waveHeader.setStartColor(Color.RED);
+        waveHeader.setCloseColor(Color.BLUE);
+
+        waveFooter.setVelocity(1);
+        waveFooter.setProgress(1);
+        waveFooter.isRunning();
+        waveFooter.setGradientAngle(45);
+        waveFooter.setWaveHeight(40);
+        waveFooter.setStartColor(Color.MAGENTA);
+        waveFooter.setCloseColor(Color.YELLOW);
+
         spinner = findViewById(R.id.spinnerCountries);
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,CountryData.countryNames));
 

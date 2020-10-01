@@ -5,21 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Register">
+
+    <com.scwang.wave.MultiWaveHeader
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/wave_header"/>
+
+    <com.scwang.wave.MultiWaveHeader
+        android:id="@+id/wave_footer"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:scaleY="-1"/>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="229dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-3dp"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginBottom="373dp"
         android:orientation="horizontal"
-        android:padding="15dp"
-        android:layout_alignParentLeft="true">
+        android:padding="15dp">
 
         <Spinner
             android:id="@+id/spinnerCountries"
             android:layout_width="120dp"
             android:layout_height="wrap_content" />
+
         <EditText
             android:id="@+id/editTextPhone"
             android:layout_width="match_parent"
@@ -37,27 +53,17 @@
         android:id="@+id/buttonContinue"
         android:layout_width="183dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="88dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_marginEnd="110dp"
+        android:layout_marginRight="110dp"
+        android:layout_marginBottom="190dp"
+        android:background="@color/colorAccent"
         android:text="Send OTP"
         android:textAllCaps="false"
         android:textColor="@android:color/background_light"
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <View
-        android:id="@+id/topview"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@color/colorPrimary" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/topview"
-        android:layout_marginTop="-12dp"
-        android:background="@drawable/ic_wave" />
 </RelativeLayout>

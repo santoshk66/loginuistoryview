@@ -6,13 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".OTP">
 
+    <com.scwang.wave.MultiWaveHeader
+        android:id="@+id/wave_header"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <com.scwang.wave.MultiWaveHeader
+        android:id="@+id/wave_footer"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:scaleY="-1"/>
+
     <EditText
         android:id="@+id/editTextCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="232dp"
+        android:layout_marginTop="274dp"
+        android:layout_marginEnd="135dp"
+        android:layout_marginRight="135dp"
+        android:layout_marginBottom="412dp"
         android:ems="10"
         android:hint="   OTP"
         android:inputType="textMultiLine"
@@ -25,10 +42,13 @@
         android:id="@+id/buttonSignIn"
         android:layout_width="227dp"
         android:layout_height="47dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="82dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_marginEnd="130dp"
+        android:layout_marginRight="130dp"
+        android:layout_marginBottom="264dp"
+        android:background="@color/colorAccent"
         android:text="Create Account"
         android:textColor="@android:color/background_light"
         android:textSize="20sp"
@@ -46,17 +66,4 @@
         android:layout_marginTop="-214dp"
         android:visibility="gone"/>
 
-    <View
-        android:id="@+id/topview"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@color/colorPrimary" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/topview"
-        android:layout_marginTop="-12dp"
-        android:background="@drawable/ic_wave" />
 </RelativeLayout>
