@@ -96,7 +96,7 @@ public class OTP extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            Intent intent = new Intent(OTP.this, MainActivity.class);
+                            Intent intent = new Intent(OTP.this, Login.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                             startActivity(intent);

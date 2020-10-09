@@ -1,32 +1,29 @@
-package com.example.myapplication;
+package com.example.myapplication.ui.PushNotification;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Random;
 
-public class MyFcmMessagingService extends FirebaseMessagingService {
+public class MyFcmTextMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "FirebaseMessageService";
-    Bitmap bitmap;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+
 
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
@@ -40,38 +37,29 @@ public class MyFcmMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
+
         //message will contain the Push Message
         String message = remoteMessage.getData().get("message");
-        //imageUri will contain URL of the image to be displayed with Notification
-        String imageUri = remoteMessage.getData().get("image");
 
-        String TrueOrFlase = remoteMessage.getData().get("AnotherActivity");
-
-        //To get a Bitmap image from the URL received
-        bitmap = getBitmapfromUrl(imageUri);
-
-        sendNotification(message, bitmap, TrueOrFlase);
+        sendNotification(message);
 
     }
 
 
-    private void sendNotification(String messageBody, Bitmap image, String TrueOrFalse) {
+    private void sendNotification(String messageBody) {
 
         int notificationId = new Random().nextInt(60000);
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("AnotherActivity", TrueOrFalse);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setLargeIcon(image)/*Notification icon image*/
                 .setSmallIcon(R.drawable.ic_stat_name)
-                .setContentTitle(messageBody)
-                .setStyle(new NotificationCompat.BigPictureStyle()
-                        .bigPicture(image))/*Notification with Image*/
+                .setContentTitle("Testing Notification")
+                .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
@@ -82,22 +70,4 @@ public class MyFcmMessagingService extends FirebaseMessagingService {
         notificationManager.notify(notificationId /* ID of notification */, notificationBuilder.build());
     }
 
-
-    public Bitmap getBitmapfromUrl(String imageUrl) {
-        try {
-            URL url = new URL(imageUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap bitmap = BitmapFactory.decodeStream(input);
-            return bitmap;
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return null;
-
-        }
-    }
 }

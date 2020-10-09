@@ -1,80 +1,122 @@
 package com.example.myapplication;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.ui.AppBarConfiguration;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
-  private BottomNavigationView mbottom;
-  private FrameLayout mframe;
-  private First firstfragment;
-    private Second secondfragment;
-    private Third thirdfragment;
-    private four fourfragment;
-    private five fivefragment;
+
+    private AppBarConfiguration mAppBarConfiguration;
+   private WebView web2;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mbottom= (BottomNavigationView) findViewById(R.id.bottom_navi);
-        mframe = (FrameLayout) findViewById(R.id.fragment_container);
+        web2 = (WebView) findViewById(R.id.web_home);
+        web2.setWebViewClient(new WebViewClient());
+        web2.loadUrl("https://www.lootllo.com/index.php/");
+        WebSettings webSettings = web2.getSettings();
+        webSettings.setJavaScriptEnabled(true);
 
-        firstfragment = new First();
-        secondfragment = new Second();
-        thirdfragment = new Third();
-        fourfragment = new four();
-        fivefragment = new five();
 
-        setFragment(firstfragment);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home)
+                .setDrawerLayout(drawer)
+                .build();
 
-        mbottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    }
 
-                switch (item.getItemId())
-                {
-                    case R.id.nav_first:
-                        setFragment(firstfragment);
-                        return true;
 
-                    case R.id.nav_second:
-                        setFragment(secondfragment);
-                        return true;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-                    case R.id.nav_third:
-                        mbottom.setItemBackgroundResource(R.color.colorAccent);
-                        setFragment(thirdfragment);
-                        return true;
+    @Override
+    public boolean onSupportNavigateUp() {
+        return false;
 
-                    case R.id.nav_four:
-                        setFragment(fourfragment);
-                        return true;
+    }
 
-                    case R.id.nav_five:
-                        setFragment(fivefragment);
-                    return true;
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-                    default:
-                        return false;
-                }
+        int id = item.getItemId();
+
+        if (id == R.id.main_notification_icon) {
+            //startActivity(new Intent(MainActivity.this,NotificationActivity.class));
+            return true;
+        } else if (id == R.id.main_cart_icon) {
+          /*  if (currentUser == null) {
+                signInDialog.show();
+            } else {
+                gotoFragment("My Cart", new MyCartFragment(), CART_FRAGMENT);
+            }*/
+
+            return true;
+        } else if (id == android.R.id.home) {
+           /* if (showCart) {
+                mainActivity = null;
+                showCart = false;
+                finish();
+                return true;
+            }*/
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private class callback extends WebViewClient {
+        @Override
+        public boolean shouldOverrideKeyEvent(WebView view, KeyEvent event) {
+            boolean overrideUrlLoading = false;
+
+            if (url != null && url.startsWith("whatsapp://")) {
+
+                view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+
+                overrideUrlLoading = true;
+
+            } else {
+
+                view.loadUrl(url);
             }
 
 
-        });
+            return overrideUrlLoading;
+        }
     }
-    private void setFragment(Fragment fragment) {
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
+    @Override
+    public void onBackPressed() {
+        if (web2.canGoBack()) {
+            web2.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
