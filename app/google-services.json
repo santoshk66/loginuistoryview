@@ -42,6 +42,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878537716795:android:453ce6efa0c16e30fbd81e",
+        "android_client_info": {
+          "package_name": "com.groupsale.Lootlo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878537716795-mhe73ch35rsp0dltg4mmpkh5r3ct3dga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU6RtRp_9TxXweBol174GcopAbb6Neb6A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878537716795-mhe73ch35rsp0dltg4mmpkh5r3ct3dga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
