@@ -2,7 +2,9 @@ package com.groupsale.Lootlo;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Bundle;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -29,34 +31,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        web2 = findViewById(R.id.web_home);
+        web2.setWebViewClient(new callback() {
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();
+            }
 
 
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
+                boolean overrideUrlLoading = false;
 
-        web2 = (WebView) findViewById(R.id.web_home);
-        web2.setWebViewClient(new WebViewClient(){@Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url != null && url.startsWith("whatsapp://")) {
 
-            boolean overrideUrlLoading = false;
+                    view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
 
-            if (url != null && url.startsWith("whatsapp://")) {
-
-                view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-
-                overrideUrlLoading = true;
+                    overrideUrlLoading = true;
 
             } else {
 
-                view.loadUrl(url);
+                    view.loadUrl(url);
+                }
+
+                return overrideUrlLoading;
+
             }
-
-            return overrideUrlLoading;
-
-        }
 
 
         });
-        web2.loadUrl("https://www.lootllo.com".toString());
+        web2.loadUrl("https://www.lootllo.com");
         // javascript enable
         WebSettings webSettings = web2.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -75,6 +80,19 @@ public class MainActivity extends AppCompatActivity {
 
     public class callback extends WebViewClient {
 
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            https:
+//www.facebook.com/dialog/permissions.request
+            //actually  works for me, but I put the URL you say is coming up
+            //blank in there instead, whatever works for you:
+            if (url.startsWith("https://www.lootllo.com/index.php/sociallogin/account/login/type/")) {
+                String redirectUrl = "http://www.lootllo.com/";
+                view.loadUrl(redirectUrl);
+                return;
+            }
+            super.onPageFinished(view, url);
+        }
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -105,4 +123,6 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+
 }

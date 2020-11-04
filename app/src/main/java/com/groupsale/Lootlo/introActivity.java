@@ -71,7 +71,7 @@ public class introActivity extends AppCompatActivity {
         }
 
         if (dots.length > 0) {
-            dots[position].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+            dots[position].setTextColor(getResources().getColor(R.color.colorAccent));
         }
 
     }

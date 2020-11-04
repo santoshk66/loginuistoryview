@@ -14,9 +14,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </androidx.viewpager.widget.ViewPager>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"></androidx.viewpager.widget.ViewPager>
 
     <Button
         android:id="@+id/skip_btn"
@@ -26,10 +27,10 @@
         android:drawableEnd="@drawable/skip_btn"
         android:drawableRight="@drawable/skip_btn"
         android:onClick="skip"
-        android:textColor="@color/icons"
-        android:textSize="25sp"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="@string/skip_btn"
+        android:textColor="@color/icons"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,18 +58,22 @@
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
             android:paddingBottom="20dp" />
+
         <Button
             android:id="@+id/next_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+            android:layout_marginStart="283dp"
+            android:layout_marginLeft="283dp"
             android:background="#00000000"
             android:drawableEnd="@drawable/next_btn"
             android:drawableRight="@drawable/next_btn"
             android:onClick="next"
-            android:paddingBottom="30dp"
-            android:gravity="center_horizontal" />
+            android:paddingBottom="15dp" />
 
     </RelativeLayout>
 
