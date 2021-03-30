@@ -14,21 +14,33 @@ public class WebAppInterface extends MainActivity {
         mContext = c;
     }
 
-    /** Show a toast from the web page */
+    /**
+     * Show a toast from the web page
+     */
     @JavascriptInterface
     public void showToast(String toast) {
         Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
     }
 
+    public WebAppInterface(Deal deal) {
+    }
 
-
-    public void sharelink(String link1)
-    {
-        link=link1;
+    public void sharelink(String link1) {
+        link = link1;
         Toast.makeText(mContext, link1, Toast.LENGTH_SHORT).show();
 
 
     }
+
+    public void datapass(int a, int b, int c) {
+
+        Toast.makeText(mContext, String.valueOf(a), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, String.valueOf(b), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, String.valueOf(c), Toast.LENGTH_SHORT).show();
+
+
+    }
+
 }
 
 

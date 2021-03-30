@@ -10,8 +10,8 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.groupsale.Lootlo.comon.CountryData;
 import com.google.firebase.auth.FirebaseAuth;
+import com.groupsale.Lootlo.comon.CountryData;
 import com.scwang.wave.MultiWaveHeader;
 
 public class Register extends AppCompatActivity {
@@ -25,15 +25,15 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        waveHeader = (MultiWaveHeader) findViewById(R.id.wave_header);
-        waveFooter = (MultiWaveHeader) findViewById(R.id.wave_footer);
+        waveHeader = findViewById(R.id.wave_header);
+        waveFooter = findViewById(R.id.wave_footer);
 
         waveHeader.setVelocity(1);
         waveHeader.setProgress(1);
         waveHeader.isRunning();
         waveHeader.setGradientAngle(45);
         waveHeader.setWaveHeight(40);
-        waveHeader.setStartColor(Color.RED);
+        waveHeader.setStartColor(Color.CYAN);
         waveHeader.setCloseColor(Color.BLUE);
 
         waveFooter.setVelocity(1);
@@ -41,7 +41,7 @@ public class Register extends AppCompatActivity {
         waveFooter.isRunning();
         waveFooter.setGradientAngle(45);
         waveFooter.setWaveHeight(40);
-        waveFooter.setStartColor(Color.MAGENTA);
+        waveFooter.setStartColor(Color.RED);
         waveFooter.setCloseColor(Color.YELLOW);
 
         spinner = findViewById(R.id.spinnerCountries);

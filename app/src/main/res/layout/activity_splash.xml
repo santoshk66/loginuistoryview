@@ -60,7 +60,4 @@
         android:layout_alignParentBottom="true"
         android:src="@drawable/ic_bottom_vector"/>
 
-
-
-
 </RelativeLayout>

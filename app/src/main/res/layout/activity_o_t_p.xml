@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,31 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="100dp" />
 
-    <com.scwang.wave.MultiWaveHeader
-        android:id="@+id/wave_footer"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:scaleY="-1"/>
 
     <EditText
         android:id="@+id/editTextCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="274dp"
-        android:layout_marginEnd="102dp"
-        android:layout_marginRight="102dp"
-        android:layout_marginBottom="412dp"
-        android:textAlignment="center"
+        android:layout_marginEnd="101dp"
+        android:layout_marginRight="101dp"
+        android:layout_marginBottom="364dp"
         android:ems="10"
         android:hint="OTP"
-        android:inputType="textMultiLine"
-        android:textColorHint="@color/icons"
-        android:visibility="visible"
+        android:inputType="number"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="57dp"
         android:gravity="center_horizontal" />
@@ -47,11 +37,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="85dp"
-        android:layout_marginRight="85dp"
-        android:layout_marginBottom="260dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginRight="89dp"
+        android:layout_marginBottom="244dp"
         android:background="@color/colorPrimaryDark"
-        android:text="verify number"
+        android:text="Create Account"
         android:textColor="@android:color/background_light"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -66,6 +56,13 @@
         android:layout_below="@+id/editTextCode"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-214dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
+    <com.scwang.wave.MultiWaveHeader
+        android:id="@+id/wave_footer"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:scaleY="-1" />
 
 </RelativeLayout>

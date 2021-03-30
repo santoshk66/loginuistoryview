@@ -27,9 +27,10 @@
         android:drawableEnd="@drawable/skip_btn"
         android:drawableRight="@drawable/skip_btn"
         android:onClick="skip"
+        android:elevation="2dp"
         android:padding="5dp"
         android:text="@string/skip_btn"
-        android:textColor="@color/icons"
+        android:textColor="@color/colorAccent"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

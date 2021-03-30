@@ -53,7 +53,7 @@ public class Splash extends AppCompatActivity {
         objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
         objectAnimator.start();
 
-        animatText("LOOTLO CLUB");
+        animatText("Grousale");
 
 
         Animation animation2 = AnimationUtils.loadAnimation(this,R.anim.bottom_wave);

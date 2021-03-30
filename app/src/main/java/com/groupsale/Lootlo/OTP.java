@@ -8,8 +8,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,19 +33,80 @@ public class OTP extends AppCompatActivity {
     MultiWaveHeader waveFooter;
     MultiWaveHeader waveHeader;
 
+    private final PhoneAuthProvider.OnVerificationStateChangedCallbacks
+            mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+        @Override
+        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            super.onCodeSent(s, forceResendingToken);
+            verificationid = s;
+        }
+
+        @Override
+        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+            String code = phoneAuthCredential.getSmsCode();
+            if (code != null) {
+                progressBar.setVisibility(View.VISIBLE);
+                verifyCode(code);
+            }
+        }
+
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+            Toast.makeText(OTP.this, e.getMessage(), Toast.LENGTH_LONG).show();
+
+        }
+    };
+
+    private void verifyCode(String code) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationid, code);
+        signInWithCredential(credential);
+    }
+
+    private void signInWithCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            Intent intent = new Intent(OTP.this, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                            startActivity(intent);
+
+                        } else {
+                            Toast.makeText(OTP.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                });
+    }
+
+    private void sendVerificationCode(String number) {
+
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                number,
+                60,
+                TimeUnit.SECONDS,
+                TaskExecutors.MAIN_THREAD,
+                mCallBack
+        );
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_o_t_p);
-        waveHeader = (MultiWaveHeader) findViewById(R.id.wave_header);
-        waveFooter = (MultiWaveHeader) findViewById(R.id.wave_footer);
+        waveHeader = findViewById(R.id.wave_header);
+        waveFooter = findViewById(R.id.wave_footer);
 
         waveHeader.setVelocity(1);
         waveHeader.setProgress(1);
         waveHeader.isRunning();
         waveHeader.setGradientAngle(45);
         waveHeader.setWaveHeight(40);
-        waveHeader.setStartColor(Color.RED);
+        waveHeader.setStartColor(Color.CYAN);
         waveHeader.setCloseColor(Color.BLUE);
 
         waveFooter.setVelocity(1);
@@ -55,7 +114,7 @@ public class OTP extends AppCompatActivity {
         waveFooter.isRunning();
         waveFooter.setGradientAngle(45);
         waveFooter.setWaveHeight(40);
-        waveFooter.setStartColor(Color.MAGENTA);
+        waveFooter.setStartColor(Color.RED);
         waveFooter.setCloseColor(Color.YELLOW);
 
         mAuth = FirebaseAuth.getInstance();
@@ -83,66 +142,4 @@ public class OTP extends AppCompatActivity {
             }
         });
     }
-
-    private void verifyCode(String code){
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationid, code);
-        signInWithCredential(credential);
-    }
-
-    private void signInWithCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-
-                            Intent intent = new Intent(OTP.this, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                            startActivity(intent);
-
-                        } else {
-                            Toast.makeText(OTP.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                });
-    }
-
-    private void sendVerificationCode(String number){
-
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                number,
-                60,
-                TimeUnit.SECONDS,
-                TaskExecutors.MAIN_THREAD,
-                mCallBack
-        );
-    }
-
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-            mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-        @Override
-        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken)
-        {
-            super.onCodeSent(s, forceResendingToken);
-            verificationid = s;
-        }
-
-        @Override
-        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-            String code = phoneAuthCredential.getSmsCode();
-            if (code != null){
-                progressBar.setVisibility(View.VISIBLE);
-                verifyCode(code);
-            }
-        }
-
-        @Override
-        public void onVerificationFailed(FirebaseException e) {
-            Toast.makeText(OTP.this, e.getMessage(),Toast.LENGTH_LONG).show();
-
-        }
-    };
 }
