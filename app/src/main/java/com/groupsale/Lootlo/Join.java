@@ -6,6 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -13,6 +18,11 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class Join extends Fragment {
+
+    RecyclerView mrecyclerView;
+    LinearLayoutManager layoutManager;
+    List<ModelClass> userList;
+    Adapter adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,12 +62,39 @@ public class Join extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        initData();
+        initRecyclerView();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_join, container, false);
+        View v = inflater.inflate(R.layout.fragment_join, container, false);
+        mrecyclerView = (RecyclerView) v.findViewById(R.id.RecyclerView1);
+        return v;
+
+    }
+
+    public void initRecyclerView() {
+        //layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        mrecyclerView.setLayoutManager(layoutManager);
+        adapter = new Adapter(userList);
+        mrecyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
+    }
+
+    private void initData() {
+        userList = new ArrayList<>();
+
+        userList.add(new ModelClass(R.drawable.appicon, "Anjali", "2 KG APPLES @ RS 20", "10:45 am"));
+
+        userList.add(new ModelClass(R.drawable.appicon, "Brijesh", "I am fine", "15:08 pm"));
+
+        userList.add(new ModelClass(R.drawable.appicon, "Sam", "You Know?", "1:02 am"));
+
     }
 }

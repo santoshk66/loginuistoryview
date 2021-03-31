@@ -1,11 +1,10 @@
 package com.groupsale.Lootlo;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -65,14 +64,17 @@ public class Deal extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_deal, container, false);
         WebView webView = (WebView) v.findViewById(R.id.web_home);
+        webView.loadUrl("https://lootllo.com");
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://www.lootllo.com");
+
         webView.addJavascriptInterface(new WebAppInterface(this), "Android");
         return v;
     }
 
-    public class callback extends WebViewClient {
+  /*  public class callback extends WebViewClient {
 
 
         @Override
@@ -95,5 +97,5 @@ public class Deal extends Fragment {
 
         }
 
-    }
+    } */
 }
