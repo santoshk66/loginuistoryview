@@ -5,9 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.groupsale.Lootlo.models.customer;
+import com.groupsale.Lootlo.models.deal;
+import com.groupsale.Lootlo.viewHolder.dealHolder;
+import com.squareup.picasso.Picasso;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +72,7 @@ public class Join extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        initData();
-        initRecyclerView();
+
     }
 
     @Override
@@ -71,18 +80,62 @@ public class Join extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_join, container, false);
-        mrecyclerView = (RecyclerView) v.findViewById(R.id.RecyclerView1);
+        mrecyclerView = v.findViewById(R.id.RecyclerView1);
+        //initData();
+        initRecyclerView();
         return v;
 
     }
 
     public void initRecyclerView() {
-        //layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         mrecyclerView.setLayoutManager(layoutManager);
-        adapter = new Adapter(userList);
+        //adapter = new Adapter(userList);
+       // mrecyclerView.setAdapter(adapter);
+        //adapter.notifyDataSetChanged();
+
+
+    }
+
+
+    public void onStart() {
+
+        super.onStart();
+
+        final DatabaseReference DealRef;
+        DealRef = FirebaseDatabase.getInstance().getReference().child("customer").child("currentDeal");
+        FirebaseRecyclerOptions<deal> options = new FirebaseRecyclerOptions.Builder<deal>().setQuery(DealRef, deal.class).build();
+
+        FirebaseRecyclerAdapter<deal, dealHolder> adapter = new FirebaseRecyclerAdapter<deal, dealHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull dealHolder holder, int position, @NonNull deal model) {
+                holder.textView.setText(model.getDummyName());
+
+
+                holder.textView2.setText(model.getDummyBelowText());
+                holder.textview3.setText(model.getDummyTime());
+                Picasso.with(getContext()).load(model.getDummyImageURL()).into(holder.imageView);
+
+            }
+
+
+
+            @NonNull
+            @Override
+            public dealHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_design,parent,false);
+                dealHolder holder = new dealHolder(view);
+                return holder;
+            }
+        };
         mrecyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        adapter.startListening();
+
+
+
+
 
 
     }
