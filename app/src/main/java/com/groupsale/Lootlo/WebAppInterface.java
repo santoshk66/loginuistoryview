@@ -1,10 +1,13 @@
 package com.groupsale.Lootlo;
 
+import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.content.Context;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
-public class WebAppInterface extends MainActivity {
+@SuppressLint("ValidFragment")
+public class WebAppInterface extends Fragment {
     Context mContext;
     String link;
 
@@ -19,7 +22,8 @@ public class WebAppInterface extends MainActivity {
      */
     @JavascriptInterface
     public void showToast(String toast) {
-        Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show(); //sku-Lootllo803
+
     }
 
     public WebAppInterface(Deal deal) {
