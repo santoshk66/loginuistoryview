@@ -15,7 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".introActivity"></activity>
+        <activity android:name=".productDescription"></activity>
+        <activity
+            android:name=".story"
+            android:label="@string/title_activity_story"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Status_Deal" />
+        <activity android:name=".introActivity" />
         <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,7 +71,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Register" />
         <activity android:name=".OTP" />
         <activity android:name=".Notification">
             <intent-filter>
@@ -113,21 +119,16 @@
 
         <meta-data
             android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-
-        <!-- Default Notification Icon -->
+            android:resource="@array/preloaded_fonts" /> <!-- Default Notification Icon -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@mipmap/ic_launcher" />
-        <!-- Default notification color -->
+            android:resource="@mipmap/ic_launcher" /> <!-- Default notification color -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
-        <!-- Default notification channel (required for Android 8.0 and above) -->
+            android:resource="@color/colorAccent" /> <!-- Default notification channel (required for Android 8.0 and above) -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
-
     </application>
 
 </manifest>
