@@ -16,7 +16,7 @@ import com.scwang.wave.MultiWaveHeader;
 
 public class Register extends AppCompatActivity {
     private Spinner spinner;
-    private EditText editText;
+    private EditText Username,PhNumber,pincode;
 
     MultiWaveHeader waveFooter;
     MultiWaveHeader waveHeader;
@@ -47,18 +47,20 @@ public class Register extends AppCompatActivity {
         spinner = findViewById(R.id.spinnerCountries);
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, CountryData.countryNames));
 
-        editText = findViewById(R.id.editTextPhone);
+        Username = findViewById(R.id.usname);  // Username
+        PhNumber = findViewById(R.id.editTextPhone); //Phone number
+        pincode = findViewById(R.id.Deliverypincode); // delivery Pincodes
 
         findViewById(R.id.buttonContinue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String code = CountryData.countryAreaCodes[spinner.getSelectedItemPosition()];
 
-                String number = editText.getText().toString().trim();
+                String number = PhNumber.getText().toString().trim();
 
                 if (number.isEmpty() || number.length() < 10) {
-                    editText.setError("Valid number is required");
-                    editText.requestFocus();
+                    PhNumber.setError("Valid number is required");
+                    PhNumber.requestFocus();
                     return;
                 }
 
